@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKYMAR HOTEL & LOUNGE | Menú Buffet</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+  <header style="background: #18304d; color: white;">
+   <div class="brand">
+     <a class="brand-link logo-effect" href="/" aria-label="SKYMAR HOTEL & LOUNGE, volver al inicio">
+        <img src="{{ url_for('static', filename='images/logo-skymar-icon.png') }}" alt="Logo Skymar">
+        <span>SKYMAR HOTEL & LOUNGE</span>
+     </a>
+   </div>
+
+   <nav aria-label="Menú principal">
+      <a href="/">Inicio</a>
+      <a href="/areas-recreativas">Áreas Recreativas</a>
+      <a href="/buffet" class="active-tab">Menú Buffet</a>
+      <a href="/turismo-extranjeros">Skymar Tours</a>
+      <a href="/calificar" style="color: #f28c28; font-weight: bold;">⭐ Calificar Estancia</a>
+   </nav>
+
+   <a class="nav-button" href="/#reservar">Reservar ahora</a>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(90deg, rgba(12,31,55,.88), rgba(12,31,55,.25)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1800&q=85') center/cover;">
+      <div class="hero-content">
+        <div class="eyebrow">Alta Cocina & Sabor</div>
+        <h1>Experiencia Gastronómica Buffet</h1>
+        <p>Menú ilimitado preparado a diario por nuestros chefs ejecutivos (disponible para huéspedes en todas las habitaciones).</p>
+      </div>
+    </section>
+
+    <section id="buffet-menu">
+      <div class="section-heading">
+        <h2>Estaciones Gastronómicas</h2>
+        <p>Un viaje de sabores internacionales y delicias locales con ingredientes frescos de la más alta calidad.</p>
+      </div>
+
+      <div class="rooms">
+        <!-- Estación 1 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=900&q=80" alt="Estación de Desayunos Continentales">
+          <div class="room-body">
+            <h3>Estación de Desayunos Continentales</h3>
+            <p>Frutas tropicales frescas, jugos naturales recién exprimidos, panadería artesanal horneada en casa, estación de huevos al gusto y variedad de embutidos gourmet.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Incluye:</strong> Waffles belgas, tortitas americanas, yogures artesanales, selección de tés importados y café de origen colombiano.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 6:30 AM - 10:30 AM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Desayuno Buffet</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido / Según plan</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Disfruta este servicio directamente en nuestro restaurante principal.')">Ver Estación</button>
+          </div>
+        </article>
+
+        <!-- Estación 2 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Estación de Almuerzos Internacionales">
+          <div class="room-body">
+            <h3>Estación de Almuerzos Internacionales</h3>
+            <p>Cortes de carne madurada, mariscos y pescados frescos de la costa, bar de ensaladas, sopas del día, arroces especiales y estación de pastas vivas.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Incluye:</strong> Opciones vegetarianas y veganas, barra de aderezos artesanales y guarniciones tropicales tradicionales.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 12:30 PM - 3:30 PM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Almuerzo Buffet</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido / Según plan</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Disfruta este servicio directamente en nuestro restaurante principal.')">Ver Estación</button>
+          </div>
+        </article>
+
+        <!-- Estación 3 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Estación de Cenas Temáticas">
+          <div class="room-body">
+            <h3>Estación de Cenas Temáticas</h3>
+            <p>Noches rotativas de gala gastronómica. Especialidades mediterráneas, comida mexicana, parrilla viva, noches de paella marinera y tacos, y carving de carnes gourmet.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Incluye:</strong> Maridaje sugerido por el sommelier de la casa y música instrumental en vivo durante la velada.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 7:00 PM - 10:30 PM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Cena Buffet</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido / Según plan</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Disfruta este servicio directamente en nuestro restaurante principal.')">Ver Estación</button>
+          </div>
+        </article>
+
+        <!-- Estación 4 -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=900&q=80" alt="Estación de Repostería & Postres">
+          <div class="room-body">
+            <h3>Estación de Repostería & Postres</h3>
+            <p>Heladería artesanal con múltiples toppings, fuente de chocolate belga, repostería fina, mousses tropicales y opciones saludables reducidas en azúcar.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Incluye:</strong> Tartas de frutas de estación, postres fríos en vaso shot, flanes tradicionales y estación de café espresso.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> Disponible en horario continuo durante comidas.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Servicio Buffet</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido / Según plan</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Disfruta este servicio directamente en nuestro restaurante principal.')">Ver Estación</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE AYUDA -->
+    <section class="contact-modern" id="contacto">
+      <div class="contact-card-box">
+        <div class="section-heading" style="margin-bottom: 15px;">
+          <h2>¿Requieres asistencia con alergias o requerimientos dietéticos?</h2>
+          <p>Nuestro equipo de chefs está preparado para atender necesidades especiales en el buffet.</p>
+        </div>
+        <div class="contact-info-grid">
+          <div class="contact-pill">
+            <span>✉️</span> <strong>Correo:</strong> skymarservice@gmail.com
+          </div>
+          <div class="contact-pill">
+            <span>📞</span> <strong>Teléfono:</strong> (301) 380 9211
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="modern-footer">
+    <div class="footer-content">
+      <p>© 2026 SKYMAR HOTEL & LOUNGE · Proyecto académico de desarrollo web</p>
+      <p class="restriction-notice">
+        🚭 <strong>Aviso de Restricción:</strong> Prohibido fumar dentro de las instalaciones cerradas y habitaciones (áreas exclusivas habilitadas al aire libre).
+      </p>
+    </div>
+    <a href="/admin/login" class="admin-lock-btn" title="Acceso Administrativo">🔒</a>
+  </footer>
+
+  <script>
+    function toggleDescription(btn) {
+      const container = btn.previousElementSibling;
+      container.classList.toggle('expanded');
+      if (container.classList.contains('expanded')) {
+        btn.textContent = 'Ver menos';
+      } else {
+        btn.textContent = 'Ver más...';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Califica tu Experiencia - SKYMAR HOTEL & LOUNGE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+      .alert-msg {
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+      }
+      .alert-msg.danger {
+        background: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+      }
+      .alert-msg.success, .alert-msg.info, .alert-msg.warning {
+        background: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+      }
+    </style>
+</head>
+<body>
+  <header style="background: #18304d; color: white;">
+     <div class="brand">
+       <a class="brand-link" href="/" aria-label="SKYMAR HOTEL & LOUNGE, volver al inicio">
+         <img src="{{ url_for('static', filename='images/logo-skymar-icon.png') }}" alt="Logo Skymar">
+         <span>SKYMAR HOTEL & LOUNGE</span>
+       </a>
+     </div>
+
+     <nav aria-label="Menú principal">
+       <a href="/">Inicio</a>
+       <a href="/areas-recreativas">Áreas Recreativas</a>
+       <a href="/buffet">Menú Buffet</a>
+       <a href="/turismo-extranjeros">Skymar Tours</a>
+       <!-- Enlace destacado para las reseñas -->
+       <a href="/calificar" style="color: #f28c28; font-weight: bold;">⭐ Calificar Estancia</a>
+     </nav>
+
+  <a class="nav-button" href="/#reservar">Reservar ahora</a>
+</header>
+
+  <main style="max-width: 750px; margin: 40px auto; padding: 0 20px;">
+    <div class="section-heading" style="text-align: center; margin-bottom: 30px;">
+      <h2>Portal de Reseñas y Calificaciones</h2>
+      <p>Encuentra tu reserva pasada o actual para compartir tu experiencia con nosotros.</p>
+    </div>
+
+    <!-- MENSAJES FLASH (Limpio para evitar errores de CSS en VS Code) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert-msg {{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- PASO 1: BUSCAR RESERVA -->
+    {% if paso == 'buscar' %}
+      <div style="background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 35px;">
+        <h3 style="color: #17365d; margin-top: 0; margin-bottom: 15px;">Buscar Reserva</h3>
+        <p style="color: #687789; font-size: 0.95rem; margin-bottom: 25px;">Ingresa tu <strong>nombre completo</strong> o la <strong>referencia de pago</strong> (ej. TAR-5678, NEQ-3456) para acceder a tu historial y calificar.</p>
+        
+        <form action="/buscar_reserva_calificar" method="POST">
+          <div style="margin-bottom: 20px;">
+            <label for="termino_busqueda" style="display: block; font-weight: 600; color: #17365d; margin-bottom: 8px;">Nombre o Referencia</label>
+            <input type="text" name="termino_busqueda" id="termino_busqueda" placeholder="Ej. Carlos Pérez o TAR-1234" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;" required>
+          </div>
+          <button type="submit" class="button" style="width: 100%; padding: 14px; background: #f28c28; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer;">
+            Buscar Reserva
+          </button>
+        </form>
+      </div>
+    {% endif %}
+
+    <!-- PASO 2: MOSTRAR RESULTADOS Y SELECCIONAR PARA CALIFICAR -->
+    {% if paso == 'seleccionar' %}
+      <div style="background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 35px;">
+        <h3 style="color: #17365d; margin-top: 0; margin-bottom: 15px;">Reservas Encontradas</h3>
+        <p style="color: #687789; font-size: 0.95rem; margin-bottom: 25px;">Selecciona la estancia que deseas calificar:</p>
+
+        {% for res in reservas %}
+          <div style="border: 1px solid #e1e8ed; border-radius: 10px; padding: 20px; margin-bottom: 25px; background: #fcfcfc;">
+            <p style="margin: 0 0 8px 0; color: #17365d;"><strong>Huésped:</strong> {{ res.cliente_nombre }}</p>
+            <p style="margin: 0 0 8px 0; color: #687789;"><strong>Habitación:</strong> {{ res.tipo }} (N° {{ res.numero_habitacion }})</p>
+            <p style="margin: 0 0 8px 0; color: #687789;"><strong>Fechas:</strong> Del {{ res.fecha_entrada }} al {{ res.fecha_salida }}</p>
+            <p style="margin: 0 0 15px 0; color: #687789;"><strong>Referencia de pago:</strong> <span style="color: #f28c28; font-weight: bold;">{{ res.referencia_pago }}</span></p>
+
+            <!-- Formulario de calificación específico para esta reserva -->
+            <form action="/guardar_calificacion_id/{{ res.id_reserva }}" method="POST" style="border-top: 1px dashed #ccc; padding-top: 15px;">
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: 600; color: #17365d; margin-bottom: 5px; font-size: 0.9rem;">Atención al Cliente</label>
+                <select name="atencion_cliente" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                  <option value="5">⭐⭐⭐⭐⭐ 5 - Excelente</option>
+                  <option value="4">⭐⭐⭐⭐ 4 - Muy Buena</option>
+                  <option value="3">⭐⭐⭐ 3 - Regular</option>
+                  <option value="2">⭐⭐ 2 - Mala</option>
+                  <option value="1">⭐ 1 - Deficiente</option>
+                </select>
+              </div>
+
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: 600; color: #17365d; margin-bottom: 5px; font-size: 0.9rem;">Servicio de Comida / Buffet</label>
+                <select name="servicio_comida" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                  <option value="5">⭐⭐⭐⭐⭐ 5 - Excepcional</option>
+                  <option value="4">⭐⭐⭐⭐ 4 - Muy Bueno</option>
+                  <option value="3">⭐⭐⭐ 3 - Aceptable</option>
+                  <option value="2">⭐⭐ 2 - Mejorable</option>
+                  <option value="1">⭐ 1 - Insatisfecho</option>
+                </select>
+              </div>
+
+              <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: 600; color: #17365d; margin-bottom: 5px; font-size: 0.9rem;">Comentarios</label>
+                <textarea name="comentario" rows="3" placeholder="Escribe tu opinión sobre la estancia..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;" required></textarea>
+              </div>
+
+              <button type="submit" class="button" style="width: 100%; padding: 10px; background: #17365d; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                Enviar Calificación para esta Reserva
+              </button>
+            </form>
+          </div>
+        {% endfor %}
+
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="/calificar" style="color: #687789; text-decoration: none; font-size: 0.9rem;">← Realizar otra búsqueda</a>
+        </div>
+      </div>
+    {% endif %}
+  </main>
+
+  <footer style="position: relative; padding: 25px 20px; background: #18304d; color: white; text-align: center; margin-top: 50px;">
+      <p>© 2026 SKYMAR HOTEL & LOUNGE · Proyecto académico de desarrollo web</p>
+      <p style="color: #e74c3c; font-weight: bold; font-size: 0.82rem; margin-top: 5px; margin-bottom: 0;">
+        🚭 Aviso de Restricción: Prohibido fumar dentro de las instalaciones cerradas y habitaciones.
+      </p>
+  </footer>
+</body>
+</html>

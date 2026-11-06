@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKYMAR HOTEL & LOUNGE | Reservaciones</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+  <!-- NOTIFICACIONES FLOTANTES TIPO TOAST -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash-toast {{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <header style="background: #18304d; color: white;">
+   <div class="brand">
+     <a class="brand-link logo-effect" href="/" aria-label="SKYMAR HOTEL & LOUNGE, volver al inicio">
+        <img src="{{ url_for('static', filename='images/logo-skymar-icon.png') }}" alt="Logo Skymar">
+        <span>SKYMAR HOTEL & LOUNGE</span>
+     </a>
+   </div>
+
+   <nav aria-label="Menú principal">
+      <a href="/" class="active-tab">Inicio</a>
+      <a href="/areas-recreativas">Áreas Recreativas</a>
+      <a href="/buffet">Menú Buffet</a>
+      <a href="/turismo-extranjeros">Skymar Tours</a>
+      <a href="/calificar" style="color: #f28c28; font-weight: bold;">⭐ Calificar Estancia</a>
+   </nav>
+
+   <a class="nav-button" href="/#reservar">Reservar ahora</a>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="eyebrow">Descansa, disfruta, explora frente al mar</div>
+        <h1>Tu próxima estadía de lujo comienza aquí</h1>
+        <p>Encuentra comodidad de clase mundial, atención personalizada y el espacio costero ideal para disfrutar tus vacaciones o tu viaje de trabajo en <strong>SKYMAR HOTEL & LOUNGE</strong>.</p>
+        <a class="button" href="#habitaciones">Conocer habitaciones</a>
+      </div>
+    </section>
+
+    <div class="booking-wrap" id="reservar">
+      <form class="booking" id="bookingForm" action="/verificar_disponibilidad" method="POST">
+
+        <div class="booking-field">
+          <label for="nombreCliente">Nombre completo</label>
+          <input id="nombreCliente" name="nombreCliente" type="text" placeholder="Tu nombre completo" maxlength="100" autocomplete="name" required>
+        </div>
+
+        <div class="booking-field">
+          <label for="correoCliente">Correo electrónico</label>
+          <input id="correoCliente" name="correoCliente" type="email" placeholder="correo@ejemplo.com" maxlength="120" autocomplete="email" required>
+        </div>
+
+        <div class="booking-field">
+          <label for="telefonoCliente">Teléfono</label>
+          <input id="telefonoCliente" name="telefonoCliente" type="tel" placeholder="Tu teléfono" maxlength="20" autocomplete="tel" required>
+        </div>
+
+        <div class="booking-field">
+          <label for="entrada">Fecha de entrada</label>
+          <input id="entrada" name="entrada" type="date" required>
+        </div>
+
+        <div class="booking-field">
+          <label for="salida">Fecha de salida</label>
+          <input id="salida" name="salida" type="date" required>
+        </div>
+
+        <div class="booking-field">
+          <label for="huespedes">Huéspedes</label>
+          <select id="huespedes" name="huespedes" required>
+            <option value="1">1 huésped</option>
+            <option value="2" selected>2 huéspedes</option>
+            <option value="3">3 huéspedes</option>
+            <option value="4">4 huéspedes</option>
+          </select>
+        </div>
+
+        <div class="booking-field">
+          <label for="tipo">Tipo de habitación</label>
+          <select id="tipo" name="tipo" required>
+            <option value="Cualquiera">Cualquiera</option>
+            <option value="Estándار">Estándar</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Familiar">Familiar</option>
+          </select>
+        </div>
+
+        <button class="button" type="submit">Consultar</button>
+
+      </form>
+    </div>
+
+    <p class="notice">
+      Prototipo académico: página creada únicamente con fines académicos para SKYMAR HOTEL & LOUNGE.
+    </p>
+
+    <section id="habitaciones">
+      <div class="section-heading">
+        <h2>Nuestras habitaciones</h2>
+        <p>Opciones de lujo pensadas para que disfrutes una estadía cómoda con vistas inigualables.</p>
+      </div>
+
+      <div class="rooms">
+        <!-- Habitación Estándar -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80" alt="Habitación estándar con cama doble">
+          <div class="room-body">
+            <h3>Habitación Estándar</h3>
+            <p>Un espacio acogedor para descansar después de un día de actividades.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Características:</strong> Cama doble, aire acondicionado inteligente, baño privado con ducha de lluvia, Smart TV de 50", minibar y caja fuerte digital.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>🌅 Vista costera:</strong> Vista parcial hacia los jardines tropicales del resort y destellos del mar.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Hasta 2 personas</span>
+              <span class="price">$180.000 <small>/ noche</small></span>
+            </div>
+            <button type="button" class="light-button choose-room" data-room="Estándar">Seleccionar</button>
+          </div>
+        </article>
+
+        <!-- Habitación Deluxe -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80" alt="Habitación deluxe amplia y luminosa">
+          <div class="room-body">
+            <h3>Habitación Deluxe</h3>
+            <p>Más espacio y detalles adicionales para una experiencia especial.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Características:</strong> Cama King Size, sala de estar integrada, cafetera express, batas de baño de lujo, bañera de hidromasaje y <strong>✨ Desayuno Buffet Incluido</strong>.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>🌅 Vista costera:</strong> Vista frontal panorámica al Océano (Ideal para disfrutar atardeceres).</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Hasta 2 personas</span>
+              <span class="price">$280.000 <small>/ noche</small></span>
+            </div>
+            <button type="button" class="light-button choose-room" data-room="Deluxe">Seleccionar</button>
+          </div>
+        </article>
+
+        <!-- Habitación Familiar -->
+        <article class="room-card">
+          <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=900&q=80" alt="Habitación familiar con varias camas">
+          <div class="room-body">
+            <h3>Habitación Familiar</h3>
+            <p>Una alternativa práctica para viajar acompañado y compartir la estadía.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Características:</strong> 2 Camas King Size, espacio amplio de 60m², zona infantil integrada, 2 baños completos y <strong>✨ Desayuno Buffet Incluido</strong>.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>🌅 Vista costera:</strong> Vista panorámica costera orientada hacia la zona de piscinas y playa privada.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Hasta 4 personas</span>
+              <span class="price">$360.000 <small>/ noche</small></span>
+            </div>
+            <button type="button" class="light-button choose-room" data-room="Familiar">Seleccionar</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="section-heading">
+        <h2>Servicios para tu comodidad</h2>
+        <p>Todo lo necesario para disfrutar una buena experiencia.</p>
+      </div>
+
+      <div class="features">
+        <article class="feature">
+          <div class="symbol">⌂</div>
+          <h3>Ambientes cómodos</h3>
+          <p>Habitaciones preparadas para descansar y recargar energías.</p>
+        </article>
+
+        <article class="feature">
+          <div class="symbol">☕</div>
+          <h3>Atención cercana</h3>
+          <p>Un equipo dispuesto a ayudarte durante tu estadía.</p>
+        </article>
+
+        <article class="feature">
+          <div class="symbol">✓</div>
+          <h3>Reserva sencilla</h3>
+          <p>Consulta las opciones y selecciona la habitación que prefieras.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE AYUDA / CONTACTO REDISEÑADA -->
+    <section class="contact-modern" id="contacto">
+      <div class="contact-card-box">
+        <div class="section-heading" style="margin-bottom: 15px;">
+          <h2>¿Necesitas ayuda?</h2>
+          <p>Contáctanos para resolver tus dudas sobre una futura reservación o estancia.</p>
+        </div>
+        <div class="contact-info-grid">
+          <div class="contact-pill">
+            <span>✉️</span> <strong>Correo:</strong> skymarservice@gmail.com
+          </div>
+          <div class="contact-pill">
+            <span>📞</span> <strong>Teléfono:</strong> (301) 380 9211
+          </div>
+        </div>
+        <a class="button" href="#reservar" style="margin-top: 20px; display: inline-block;">Iniciar reservación</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER REDISEÑADO -->
+  <footer class="modern-footer">
+    <div class="footer-content">
+      <p>© 2026 SKYMAR HOTEL & LOUNGE · Proyecto académico de desarrollo web</p>
+      <p class="restriction-notice">
+        🚭 <strong>Aviso de Restricción:</strong> Prohibido fumar dentro de las instalaciones cerradas y habitaciones (áreas exclusivas habilitadas al aire libre).
+      </p>
+    </div>
+    <a href="/admin/login" class="admin-lock-btn" title="Acceso Administrativo">🔒</a>
+  </footer>
+
+  <!-- Modal de Advertencia Personalizado -->
+  <div id="customModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,31,55,0.6); z-index: 1000; align-items: center; justify-content: center;">
+      <div style="background: white; padding: 30px; border-radius: 14px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 12px 32px rgba(24,48,77,0.2);">
+          <div style="font-size: 2.5rem; margin-bottom: 10px;">⚠️</div>
+          <h3 style="color: #17365d; margin-top: 0; margin-bottom: 12px;">Aviso de Capacidad</h3>
+          <p id="modalMessage" style="color: #687789; line-height: 1.5; margin-bottom: 24px;"></p>
+          <button type="button" onclick="cerrarModal()" style="background: #f28c28; color: white; border: 0; border-radius: 8px; padding: 12px 20px; font-weight: 700; width: 100%; cursor: pointer;">Entendido</button>
+      </div>
+  </div>
+
+  <!-- SCRIPT PARA EL BOTÓN VER MÁS Y TOASTS -->
+  <script>
+    function toggleDescription(btn) {
+      const container = btn.previousElementSibling;
+      container.classList.toggle('expanded');
+      if (container.classList.contains('expanded')) {
+        btn.textContent = 'Ver menos';
+      } else {
+        btn.textContent = 'Ver más...';
+      }
+    }
+
+    // Auto-eliminar notificaciones flash a los 2 segundos
+    setTimeout(function() {
+      let toasts = document.querySelectorAll('.flash-toast');
+      toasts.forEach(toast => toast.remove());
+    }, 2000);
+  </script>
+</body>
+</html>

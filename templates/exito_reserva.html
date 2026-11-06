@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Skymar | Reserva Exitosa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main style="padding: 60px 10%; text-align: center;">
+        <div style="background: white; padding: 40px; border-radius: 14px; max-width: 500px; margin: 0 auto; box-shadow: 0 6px 20px rgba(0,0,0,0.1);">
+            <h2 style="color: #28a745;">¡Reserva Exitosa!</h2>
+            <p style="color: #687789; margin: 20px 0;">Tu reserva ha sido guardada y la habitación fue asignada.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="/calificar_servicio_actual" class="button" style="display: inline-block; padding: 12px 25px; background: #f28c28; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; margin-bottom: 10px;">
+                     Calificar nuestro servicio
+                </a>
+                <a href="/" style="display: block; color: #17365d; text-decoration: none; font-weight: 600; margin-top: 10px;">
+                       Regresar al inicio
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

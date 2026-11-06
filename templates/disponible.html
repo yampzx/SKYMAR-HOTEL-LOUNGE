@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Reservación - SKYMAR HOTEL & LOUNGE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <a class="brand-link" href="/" aria-label="SKYMAR HOTEL & LOUNGE, volver al inicio">
+        <img src="{{ url_for('static', filename='images/logo-skymar-icon.png') }}" alt="Logo Skymar">
+        <span>SKYMAR HOTEL & LOUNGE</span>
+      </a>
+    </div>
+    <nav aria-label="Menú principal">
+      <a href="/">Inicio</a>
+      <a href="/areas-recreativas">Áreas Recreativas</a>
+      <a href="/buffet">Menú Buffet</a>
+      <a href="/turismo-extranjeros">Skymar Tours</a>
+    </nav>
+    <a class="nav-button" href="/">Cancelar</a>
+  </header>
+
+  <main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+    <div class="section-heading" style="text-align: center; margin-bottom: 30px;">
+      <h2>¡Habitación Disponible!</h2>
+      <p>Revisa los detalles de tu estancia y completa tu método de pago seguro.</p>
+    </div>
+
+    <!-- Resumen de la Habitación -->
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 30px;">
+      <div style="padding: 25px;">
+        <h3 style="color: #17365d; margin-top: 0; border-bottom: 2px solid #f28c28; padding-bottom: 10px;">{{ habitacion.tipo }} (Habitación N° {{ habitacion.numero_habitacion }})</h3>
+        <p style="color: #687789; margin: 8px 0;"><strong>Capacidad máxima:</strong> {{ habitacion.capacidad }} personas</p>
+        <p style="color: #687789; margin: 8px 0;"><strong>🌅 Vista costera:</strong> {{ habitacion.vista_costera }}</p>
+        {% if desayuno_incluido %}
+          <p style="color: #27ae60; font-weight: bold; margin: 8px 0;">✨ Incluye Desayuno Buffet de Cortesía</p>
+        {% endif %}
+        
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+          <div>
+            <p style="margin: 0; color: #687789; font-size: 0.9rem;">Precio por noche: <strong>${{ habitacion.precio }}</strong></p>
+            <p style="margin: 5px 0 0 0; color: #687789; font-size: 0.9rem;">Duración: <strong>{{ noches }} noche(s)</strong></p>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 0.85rem; color: #687789; display: block;">Total a Pagar</span>
+            <span style="font-size: 1.8rem; font-weight: bold; color: #f28c28;">${{ total_pagar }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de Pago con Métodos Dinámicos (Nequi, DaviPlata, Tarjeta) -->
+    <div style="background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 30px;">
+      <h3 style="color: #17365d; margin-top: 0; margin-bottom: 20px;">Datos de Pago Seguro</h3>
+      
+      <form action="/confirmar_reserva" method="POST">
+        <input type="hidden" name="id_habitacion" value="{{ habitacion.id_habitacion }}">
+
+        <div style="margin-bottom: 20px;">
+          <label for="metodo_pago" style="display: block; font-weight: 600; color: #17365d; margin-bottom: 8px;">Método de Pago</label>
+          <select name="metodo_pago" id="metodo_pago" class="form-control" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;" onchange="cambiarCamposPago()" required>
+            <option value="Tarjeta de Crédito">Tarjeta de Crédito / Débito</option>
+            <option value="Nequi">Nequi</option>
+            <option value="DaviPlata">DaviPlata</option>
+            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+          </select>
+        </div>
+
+        <!-- Contenedor dinámico según el método de pago elegido -->
+        <div id="camposDinamicosPago">
+          <div style="margin-bottom: 20px;">
+            <label for="tarjeta_numero" style="display: block; font-weight: 600; color: #17365d; margin-bottom: 8px;" id="labelPago">Número de Tarjeta</label>
+            <input type="text" name="tarjeta_numero" id="tarjeta_numero" placeholder="4000 1234 5678 9010" maxlength="19" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;" required>
+          </div>
+
+          <div id="extraTarjeta" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+            <div>
+              <label for="exp_date" style="display: block; font-weight: 600; color: #17365d; margin-bottom: 8px;">Expiración (MM/AA)</label>
+              <input type="text" id="exp_date" placeholder="MM/AA" maxlength="5" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;">
+            </div>
+            <div>
+              <label for="cvv" style="display: block; font-weight: 600; color: #17365d; margin-bottom: 8px;">CVV / Seguridad</label>
+              <input type="password" id="cvv" placeholder="123" maxlength="4" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="button" style="width: 100%; padding: 14px; background: #f28c28; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer;">
+          Confirmar y Pagar ${{ total_pagar }}
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Script para cambiar dinámicamente los campos según Nequi/DaviPlata o Tarjeta -->
+  <script>
+    function cambiarCamposPago() {
+      const metodo = document.getElementById("metodo_pago").value;
+      const labelPago = document.getElementById("labelPago");
+      const inputPago = document.getElementById("tarjeta_numero");
+      const extraTarjeta = document.getElementById("extraTarjeta");
+
+      if (metodo === "Nequi" || metodo === "DaviPlata") {
+        labelPago.innerText = "Número de Celular Asociado";
+        inputPago.placeholder = "300 123 4567";
+        inputPago.maxLength = 13;
+        extraTarjeta.style.display = "none"; // Oculta mes/año y CVV
+      } else if (metodo === "Transferencia Bancaria") {
+        labelPago.innerText = "Número de Comprobante / Transacción";
+        inputPago.placeholder = "REF-987654321";
+        inputPago.maxLength = 30;
+        extraTarjeta.style.display = "none";
+      } else {
+        labelPago.innerText = "Número de Tarjeta";
+        inputPago.placeholder = "4000 1234 5678 9010";
+        inputPago.maxLength = 19;
+        extraTarjeta.style.display = "grid"; // Muestra los campos de tarjeta
+      }
+    }
+  </script>
+
+  <footer style="position: relative; padding: 25px 20px; background: #18304d; color: white; text-align: center; margin-top: 50px;">
+      <p>© 2026 SKYMAR HOTEL & LOUNGE · Proyecto académico de desarrollo web</p>
+      <p style="color: #e74c3c; font-weight: bold; font-size: 0.82rem; margin-top: 5px; margin-bottom: 0;">
+        🚭 Aviso de Restricción: Prohibido fumar dentro de las instalaciones cerradas y habitaciones.
+      </p>
+  </footer>
+</body>
+</html>

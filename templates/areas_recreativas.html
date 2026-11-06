@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKYMAR HOTEL & LOUNGE | Áreas Recreativas</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+  <header style="background: #18304d; color: white;">
+   <div class="brand">
+     <a class="brand-link logo-effect" href="/" aria-label="SKYMAR HOTEL & LOUNGE, volver al inicio">
+        <img src="{{ url_for('static', filename='images/logo-skymar-icon.png') }}" alt="Logo Skymar">
+        <span>SKYMAR HOTEL & LOUNGE</span>
+     </a>
+   </div>
+
+   <nav aria-label="Menú principal">
+      <a href="/">Inicio</a>
+      <a href="/areas-recreativas" class="active-tab">Áreas Recreativas</a>
+      <a href="/buffet">Menú Buffet</a>
+      <a href="/turismo-extranjeros">Skymar Tours</a>
+      <a href="/calificar" style="color: #f28c28; font-weight: bold;">⭐ Calificar Estancia</a>
+   </nav>
+
+   <a class="nav-button" href="/#reservar">Reservar ahora</a>
+  </header>
+
+  <main>
+    <section class="hero" style="background: linear-gradient(90deg, rgba(12,31,55,.88), rgba(12,31,55,.25)), url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1800&q=85') center/cover;">
+      <div class="hero-content">
+        <div class="eyebrow">Instalaciones Exclusivas</div>
+        <h1>Áreas Recreativas & Experiencias de Lujo</h1>
+        <p>Espacios diseñados para tu máximo confort, relajación y entretenimiento durante tu estadía en <strong>SKYMAR HOTEL & LOUNGE</strong>.</p>
+      </div>
+    </section>
+
+    <section id="areas">
+      <div class="section-heading">
+        <h2>Instalaciones de Primer Nivel</h2>
+        <p>Disfruta de cada rincón de nuestro resort con acceso ilimitado para huéspedes.</p>
+      </div>
+
+      <div class="rooms">
+        <!-- Área 1 -->
+        <article class="room-card">
+          <img src="{{ url_for('static', filename='images/bar-lujo.png') }}" alt="Bar de Lujo & Lounge" onerror="this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80'">
+          <div class="room-body">
+            <h3>Bar de Lujo & Lounge</h3>
+            <p>Coctelería de autor, licores premium e importados con ambiente exclusivo frente al mar.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Detalles:</strong> Música ambiental en vivo los fines de semana, terraza panorámica y atención personalizada en mesa.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 2:00 PM - 2:00 AM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Acceso Huéspedes</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Área abierta para todos nuestros huéspedes registrados.')">Consultar</button>
+          </div>
+        </article>
+
+        <!-- Área 2 -->
+        <article class="room-card">
+          <img src="{{ url_for('static', filename='images/piscina-infinity.png') }}" alt="Piscina Infinity & Parque Acuático" onerror="this.src='https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=900&q=80'">
+          <div class="room-body">
+            <h3>Piscina Infinity & Parque Acuático</h3>
+            <p>Toboganes de alta velocidad, zonas de juegos acuáticos familiares y área exclusiva para adultos.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Detalles:</strong> Servicio de toallas sin costo, bar sumergido, camastros flotantes y zona de hidromasaje exterior.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 8:00 AM - 8:00 PM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Acceso Huéspedes</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Área abierta para todos nuestros huéspedes registrados.')">Consultar</button>
+          </div>
+        </article>
+
+        <!-- Área 3 -->
+        <article class="room-card">
+          <img src="{{ url_for('static', filename='images/spa.png') }}" alt="Spa, Saunas & Baños Turcos" onerror="this.src='https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=80'">
+          <div class="room-body">
+            <h3>Spa, Saunas & Baños Turcos</h3>
+            <p>Circuitos hídricos de desintoxicación, hidroterapia y salas de masaje relajante profesional.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Detalles:</strong> Aromaterapia, aceites esenciales naturales, cabinas dobles para parejas y zonas de descanso zen.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 9:00 AM - 7:00 PM (Requiere reserva previa).</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Servicio Adicional</span>
+              <span class="price">$80.000 <small>/ sesión</small></span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Para agendar tu cita en el spa, acércate a recepción.')">Reservar Cita</button>
+          </div>
+        </article>
+
+        <!-- Área 4 -->
+        <article class="room-card">
+          <img src="{{ url_for('static', filename='images/museo-privado.png') }}" alt="Museo Privado" onerror="this.src='https://images.unsplash.com/photo-1565060169194-1598f82f6e91?auto=format&fit=crop&w=900&q=80'">
+          <div class="room-body">
+            <h3>Museo Privado</h3>
+            <p>Exhibición privada de arte contemporáneo e historia arqueológica exclusiva para huéspedes.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Detalles:</strong> Guías expertos disponibles, piezas prehispánicas originales y galerías temporales de artistas nacionales e internacionales.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 10:00 AM - 6:00 PM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Acceso Huéspedes</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Área abierta para todos nuestros huéspedes registrados.')">Consultar</button>
+          </div>
+        </article>
+
+        <!-- Área 5 -->
+        <article class="room-card">
+          <img src="{{ url_for('static', filename='images/gimnasio.png') }}" alt="Gimnasio Privado" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80'">
+          <div class="room-body">
+            <h3>Gimnasio Privado</h3>
+            <p>Maquinaria de última generación, área de peso libre y entrenadores personales disponibles.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Detalles:</strong> Zona de cardio con pantallas individuales, pesas rusas, barras olímpicas, estudio de yoga y pilates.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 24 horas (Acceso con tarjeta de habitación).</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Acceso Huéspedes</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Área abierta para todos nuestros huéspedes registrados.')">Consultar</button>
+          </div>
+        </article>
+
+        <!-- Área 6 -->
+        <article class="room-card">
+          <img src="{{ url_for('static', filename='images/sala-juegos.png') }}" alt="Sala de Juegos Mixta" onerror="this.src='https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=900&q=80'">
+          <div class="room-body">
+            <h3>Sala de Juegos Mixta</h3>
+            <p>Mesas de billar, pinball y zona integrada con consolas de videojuegos de última generación.</p>
+            
+            <div class="room-details-container">
+              <div class="collapsible-text">
+                <p style="font-size: 0.9rem; color: #444; margin-top: 6px;"><strong>Detalles:</strong> Zona de realidad virtual, futbolín, juegos de mesa clásicos y ambiente climatizado con sonido envolvente.</p>
+                <p style="font-size: 0.9rem; color: #17365d; margin-top: 4px;"><strong>⏰ Horario:</strong> 11:00 AM - 11:00 PM.</p>
+              </div>
+              <button type="button" class="toggle-desc-btn" onclick="toggleDescription(this)">Ver más...</button>
+            </div>
+
+            <div class="room-meta">
+              <span>Acceso Huéspedes</span>
+              <span class="price" style="font-size: 1rem; color: #27ae60;">Incluido</span>
+            </div>
+            <button type="button" class="light-button" onclick="alert('Área abierta para todos nuestros huéspedes registrados.')">Consultar</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE AYUDA -->
+    <section class="contact-modern" id="contacto">
+      <div class="contact-card-box">
+        <div class="section-heading" style="margin-bottom: 15px;">
+          <h2>¿Necesitas más información sobre las instalaciones?</h2>
+          <p>Contáctanos para resolver tus dudas sobre el uso de áreas recreativas.</p>
+        </div>
+        <div class="contact-info-grid">
+          <div class="contact-pill">
+            <span>✉️</span> <strong>Correo:</strong> skymarservice@gmail.com
+          </div>
+          <div class="contact-pill">
+            <span>📞</span> <strong>Teléfono:</strong> (301) 380 9211
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="modern-footer">
+    <div class="footer-content">
+      <p>© 2026 SKYMAR HOTEL & LOUNGE · Proyecto académico de desarrollo web</p>
+      <p class="restriction-notice">
+        🚭 <strong>Aviso de Restricción:</strong> Prohibido fumar dentro de las instalaciones cerradas y habitaciones (áreas exclusivas habilitadas al aire libre).
+      </p>
+    </div>
+    <a href="/admin/login" class="admin-lock-btn" title="Acceso Administrativo">🔒</a>
+  </footer>
+
+  <script>
+    function toggleDescription(btn) {
+      const container = btn.previousElementSibling;
+      container.classList.toggle('expanded');
+      if (container.classList.contains('expanded')) {
+        btn.textContent = 'Ver menos';
+      } else {
+        btn.textContent = 'Ver más...';
+      }
+    }
+  </script>
+</body>
+</html>
